@@ -8,6 +8,7 @@ import java.util.Objects;
 public class User{
 
     private Long id;
+    private int account;
     private String name;
     private String role;
     @NotNull
@@ -17,11 +18,13 @@ public class User{
     @Size(min=5)
     private String password;
 
-    public User(Long id, String name,String login,String password){
+    public User(Long id,String name,String login,String password,int account,String role){
         this.id = id;
         this.name = name;
         this.login = login;
         this.password =password;
+        this.account=account;
+        this.role=role;
     }
 
     public Long getId(){
@@ -29,6 +32,10 @@ public class User{
     }
 
     public void setId(Long id) {this.id = id;}
+
+    public int getAccount(){return account;}
+
+    public void setAccount(int account) { this.account = account; }
 
     public String getRole(){return role;}
 

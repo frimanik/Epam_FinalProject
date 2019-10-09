@@ -14,41 +14,46 @@ public class UserRepositoryImpl implements UserRepository {
             rowStr.getLong("id"),
             rowStr.getString("FULL_NAME"),
             rowStr.getString("login"),
-            rowStr.getString("password")
+            rowStr.getString("password"),
+            rowStr.getInt("account"),
+            rowStr.getString("role")
     );
 
     @Override
     public int create (User user){
-        String sql = "insert into 'user' ('FULL_NAME'=?, 'login=?','password=?','role=?') where 'id'=?";
+        String sql = "insert into 'user' ('FULL_NAME'=?, 'login=?','password=?','role=?','account') where 'id'=?";
         return jdbcTemplate.update(sql,
                 user.getName(),
                 user.getLogin(),
                 user.getPassword(),
-                user.getRole());
+                user.getRole(),
+                user.getAccount());
     }
 
     @Override
     public User get(Long id){
-        String sql = "select 'id','FULL_NAME','login','password','role' where 'id'=?";
+        String sql = "select 'id','FULL_NAME','login','password','role','account' where 'id'=?";
         return jdbcTemplate.queryForObject(sql,User.class,id);
     }
 
     @Override
     public User get(String login){
         String sql = "Select `id`, `FULL_NAME`" +
-                "login`,`password` from `user` where login = ?";
+                "login`,`password`,'role','account' from `user` where login = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{login}, User.class);
     }
 
     @Override
     public int update (User user){
-        String sql ="update user from 'user' set 'FULL_NAME'=?,'login=?','password=?','role=?'  where 'id'=?";
+        String sql ="update user from 'user' set 'FULL_NAME'=?,'login=?','password=?','role=?','account'  where 'id'=?";
         return jdbcTemplate.update(sql,
                 user.getId(),
                 user.getName(),
                 user.getLogin(),
                 user.getPassword(),
-                user.getRole());
+                user.getRole(),
+                user.getAccount());
+
     }
 
     @Override
