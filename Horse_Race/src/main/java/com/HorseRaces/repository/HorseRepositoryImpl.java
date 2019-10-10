@@ -11,35 +11,35 @@ public class HorseRepositoryImpl implements HorseRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private RowMapper<Horse> horse = (rowStr, rowNum) -> new Horse(
+    private RowMapper<Horse> horseRowMapper = (rowStr, rowNum) -> new Horse(
             rowStr.getLong("id"),
             rowStr.getString("color")
     );
 
     @Override
     public int create(Horse horse) {
-        String sql = "insert into 'horse'('color'=?) where 'id'=?";
+        String sql = "insert into horses (id,color) values(?,?)";
         return jdbcTemplate.update(sql,
-                horse.getColor(),
-                horse.getId());
+                horse.getId(),
+                horse.getColor());
     }
 
     @Override
     public Horse get(Long id) {
-        String sql = "select 'id', 'color' where 'id'=? ";
-        return jdbcTemplate.queryForObject(sql, Horse.class, id);
+        String sql = "select id, color  from  horses where id=?";
+        return jdbcTemplate.queryForObject(sql, horseRowMapper, id);
     }
-// @override
+
     @Override
     public int update(Horse horse) {
-        String sql = "update horse from 'horse' set 'color'=? where 'id'=?";
+        String sql = "update horses set color=? where id=?";
         return jdbcTemplate.update(sql,
                 horse.getColor(),
                 horse.getId());
     }
     @Override
     public int delete(Long id){
-        String sql ="delete horse from 'horse' where 'id'=?";
+        String sql ="delete horses from horses where id=?";
         return jdbcTemplate.update(sql,id);
     }
 

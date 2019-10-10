@@ -11,16 +11,17 @@ import org.springframework.stereotype.Repository;
 public class BetRepositoryImpl implements BetRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private RowMapper<Bet> rowMapper = (rowStr, rowNum) -> new Bet(
+    private RowMapper<Bet> betRowMapper = (rowStr, rowNum) -> new Bet(
             rowStr.getLong("id"),
             rowStr.getInt("quantity"),
             rowStr.getInt("multiplier"),
-            rowStr.getDate("created_at")
+            rowStr.getString("created_at")
     );
 
     @Override
     public int create (Bet bet)        {
-        String sql = "insert into 'bet' ('id','quantity','multiplier','created_at)" + "VALUES(?,?,?,?)";
+        String sql = "insert into bets (id,quantity,multiplier,created_at)" +
+                " values(?,?,?,?)";
         return jdbcTemplate.update(sql,
                 bet.getId(),
                 bet.getMultiplier(),
@@ -30,23 +31,24 @@ public class BetRepositoryImpl implements BetRepository {
 
     @Override
     public Bet get (Long id){
-        String sql = "select 'id','quantity','multiplier','created_at' where  id=?";
-        return jdbcTemplate.queryForObject(sql,Bet.class,id);
+        String sql = "select id,quantity,multiplier,created_at from bets where  id=?";
+        return jdbcTemplate.queryForObject(sql,betRowMapper,id);
     }
 
     @Override
     public int update (Bet bet){
-        String sql = "update bet from 'bet' set 'multiplier=?','quantity=?','created_at=?' where 'id'=?";
+        String sql = "update bets set multiplier=?,quantity=?,created_at=? where id=?";
+
         return jdbcTemplate.update(sql,
-                bet.getId(),
-                bet.getQuantity(),
                 bet.getMultiplier(),
-                bet.getCreated_at());
+                bet.getQuantity(),
+                bet.getCreated_at(),
+                bet.getId());
     }
 
     @Override
     public int delete(Long id) {
-        String sql = "delete bet from 'bet' where 'id'=?";
+        String sql = "delete bets from bets where id=?";
         return jdbcTemplate.update(sql,id);
     }
 

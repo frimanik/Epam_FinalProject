@@ -6,9 +6,9 @@ public class Bet{
     private Long id;
     private int quantity;
     private int multiplier;
-    private java.sql.Date created_at;
+    private String created_at;
 
-    public Bet(Long id, int quantity, int multiplier, java.sql.Date created_at){
+    public Bet(Long id, int quantity, int multiplier, String created_at){
         this.id = id;
         this.quantity=quantity;
         this.multiplier=multiplier;
@@ -33,9 +33,9 @@ public class Bet{
 
     public void setMultiplier(int multiplier) { this.multiplier = multiplier; }
 
-    public java.sql.Date getCreated_at() {
+    public String getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) { this.created_at = created_at; }
+    public void setCreated_at(String created_at) { this.created_at = created_at; }
 }

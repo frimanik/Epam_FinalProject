@@ -1,16 +1,19 @@
 package com.HorseRaces.entity;
 
-import java.sql.Date;
+
+
+import java.util.List;
 
 public class Race{
     private long id;
-    private java.sql.Date startDate;
-    private long winner;
+    private String date;
+    ;
 
-    public Race(Long id, java.sql.Date startDate,Long winner){
+    private List <Horse> horses;
+
+    public Race(Long id, String date){
         this.id = id;
-        this.startDate = startDate;
-        this.winner=winner;
+        this.date = date;
     }
 
     public Long getId(){
@@ -19,13 +22,14 @@ public class Race{
 
     public void setId(long id) { this.id = id; }
 
-    public java.sql.Date getStartDate() {
-        return startDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setStartDate(Date startDate) { this.startDate = startDate; }
+    public void setDate(String date) { this.date = date; }
 
-    public Long getWinner(){return id;}
 
-    public void setWinner(long winner) { this.winner = winner; }
+    public List<Horse> getHorses() { return horses; }
+
+    public void setHorses(List<Horse> horses) { this.horses = horses; }
 }

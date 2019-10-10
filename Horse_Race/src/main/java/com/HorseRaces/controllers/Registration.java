@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import com.HorseRaces.repository.UserRepository;
 
 @Controller
 public class Registration {
@@ -13,5 +14,7 @@ public class Registration {
     public String Home(){
         return "registration";
     }
+
+
 }
 

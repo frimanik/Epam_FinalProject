@@ -21,7 +21,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public int create (User user){
-        String sql = "insert into 'user' ('FULL_NAME'=?, 'login=?','password=?','role=?','account') where 'id'=?";
+        String sql = "insert into users (FULL_NAME,login,password,role,account)" +
+               " values(?,?,?,?,?)";
+
         return jdbcTemplate.update(sql,
                 user.getName(),
                 user.getLogin(),
@@ -32,33 +34,33 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User get(Long id){
-        String sql = "select 'id','FULL_NAME','login','password','role','account' where 'id'=?";
-        return jdbcTemplate.queryForObject(sql,User.class,id);
+        String sql = "select id,FULL_NAME,login,password,role,account from users where id=?";
+        return jdbcTemplate.queryForObject(sql,user,id);
     }
 
     @Override
     public User get(String login){
-        String sql = "Select `id`, `FULL_NAME`" +
-                "login`,`password`,'role','account' from `user` where login = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{login}, User.class);
+        String sql = "Select id, FULL_NAME," +
+                "login,password,role,account from users where login = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{login}, user);
     }
 
     @Override
     public int update (User user){
-        String sql ="update user from 'user' set 'FULL_NAME'=?,'login=?','password=?','role=?','account'  where 'id'=?";
+        String sql ="update users set FULL_NAME=?, login=?, password=?, account=?, role=? where id=?";
+
         return jdbcTemplate.update(sql,
-                user.getId(),
                 user.getName(),
                 user.getLogin(),
                 user.getPassword(),
+                user.getAccount(),
                 user.getRole(),
-                user.getAccount());
-
+                user.getId());
     }
 
     @Override
     public int delete (Long id){
-        String sql ="delete user from 'user' where 'id'=?";
+        String sql ="delete users from users where id=?";
         return jdbcTemplate.update(sql,id);
     }
 //прописать наличие сервисов
