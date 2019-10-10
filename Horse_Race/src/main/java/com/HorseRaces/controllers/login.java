@@ -29,13 +29,7 @@ public class login {
         return modelAndView;
     }
 
-    @GetMapping("/exit")
-    public ModelAndView logout(HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/login");
-        request.getSession().invalidate();
-        return modelAndView;
-    }
+    
 
     @PostMapping("/login")
     public ModelAndView login(String login, String password) {
@@ -49,12 +43,7 @@ public class login {
         return modelAndView;
     }
 
-    @GetMapping("/logout")
-    public ModelAndView logoutPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/login");
-        return modelAndView;
-    }
+
 
 
 }
