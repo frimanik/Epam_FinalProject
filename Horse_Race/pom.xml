@@ -57,6 +57,16 @@
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.8</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -67,5 +77,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
+
 
 </project>

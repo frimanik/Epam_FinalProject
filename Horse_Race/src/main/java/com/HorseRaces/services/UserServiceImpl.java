@@ -21,7 +21,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void regUser(User user){
+        //user.setId(1+id++);
+        user.setLogin(user.getLogin());
         user.setPassword(hash(user.getPassword()));
+        user.setName(user.getName());
+        user.setAccount(user.getAccount());
+        user.setRole(user.getRole());
         userRepository.create(user);
     }
 
