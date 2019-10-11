@@ -63,7 +63,11 @@ public class UserRepositoryImpl implements UserRepository {
         String sql ="delete users from users where id=?";
         return jdbcTemplate.update(sql,id);
     }
-//прописать наличие сервисов
-//логика в сервисах - регистрация,авторизация,ставка,выйгрыш.
 
+
+   /* public int LoginExists(String login){
+        String sql = "select * from users WHERE username=?";
+        return jdbcTemplate.qeueryForObject(sql, new Object[] {login}, String.class);
+    }
+*/
 }

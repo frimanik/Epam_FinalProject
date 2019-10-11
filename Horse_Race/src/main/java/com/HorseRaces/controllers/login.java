@@ -1,7 +1,5 @@
 package com.HorseRaces.controllers;
 
-
-import com.HorseRaces.entity.User;
 import com.HorseRaces.services.UserService;
 import com.HorseRaces.services.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import javax.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
 @RestController
 public class login {
 
@@ -29,8 +25,6 @@ public class login {
         return modelAndView;
     }
 
-
-
     @PostMapping("/login")
     public ModelAndView login(String login, String password) {
         ModelAndView modelAndView = new ModelAndView();
@@ -42,8 +36,5 @@ public class login {
         }
         return modelAndView;
     }
-
-
-
 
 }

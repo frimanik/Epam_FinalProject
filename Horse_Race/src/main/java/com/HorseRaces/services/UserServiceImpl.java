@@ -2,9 +2,14 @@ package com.HorseRaces.services;
 
 import com.HorseRaces.entity.User;
 import com.HorseRaces.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -14,6 +19,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    private RowMapper<User> userRowMapper=(rowStr, rowNum)->new User(
+            rowStr.getLong("id"),
+            rowStr.getString("FULL_NAME"),
+            rowStr.getString("login"),
+            rowStr.getString("password"),
+            rowStr.getInt("account"),
+            rowStr.getString("role")
+    );
+
     @Override
     public User getById(Long id){
         return userRepository.get(id);
@@ -21,7 +38,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void regUser(User user){
-        //user.setId(1+id++);
         user.setLogin(user.getLogin());
         user.setPassword(hash(user.getPassword()));
         user.setName(user.getName());
@@ -58,14 +74,17 @@ public class UserServiceImpl implements UserService {
     public boolean checkPassword(User user,String password){return user.getPassword().equals(hash(password));}
 
     @Override
-    public boolean checkUnique(User user){
+    public boolean checkUnique(String login){
+        User user;
         try {
-            userRepository.get(user.getLogin());
+             user = userRepository.get(login);
+            }
+        catch (EmptyResultDataAccessException e){
+            return true;
         }
-        catch (Exception ex){
-            return false;
-        }
-        return true;
+       return user==null;
     }
+
 }
+
 

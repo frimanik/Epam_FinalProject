@@ -12,7 +12,7 @@ public interface UserService {
 
     boolean checkPassword(User user,String password);
 
-    boolean checkUnique(User user);
+    boolean checkUnique(String login);
 
     String hash(String password);
 
