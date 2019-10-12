@@ -1,13 +1,11 @@
 package com.HorseRaces.entity;
 
-
-
 import java.util.List;
 
 public class Race{
     private long id;
     private String date;
-    ;
+
 
     private List <Horse> horses;
 
@@ -27,7 +25,6 @@ public class Race{
     }
 
     public void setDate(String date) { this.date = date; }
-
 
     public List<Horse> getHorses() { return horses; }
 
